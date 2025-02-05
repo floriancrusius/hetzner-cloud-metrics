@@ -9,8 +9,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [macos-latest, windows-latest, ubuntu-latest]
-        arch: [x64, arm64]
+        os: [macos-31, macos-latest, windows-latest, ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -20,7 +19,7 @@ jobs:
       - run: yarn install --frozen-lockfile --ignore-scripts
       - run: yarn add macos-alias
       - run: yarn run electron-rebuild
-      - run: yarn run publish --arch=${{ matrix.arch }} --dry-run
+      - run: yarn run publish --dry-run
       - uses: actions/upload-artifact@v4
         with:
           name: build-artifacts
