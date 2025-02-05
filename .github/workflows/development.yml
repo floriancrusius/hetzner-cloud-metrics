@@ -23,6 +23,8 @@ jobs:
             export ARCHFLAGS="-arch arm64"
             sudo xcode-select --install || true
           fi
+      - run: yarn config set network-timeout 100000 -g
+        shell: bash
       - run: yarn install --frozen-lockfile --ignore-scripts
         shell: bash
       - run: npx electron-rebuild
