@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: 20.10
       - run: yarn install --frozen-lockfile --ignore-scripts
-      - run: yarn add macos-alias
+      #   - run: yarn add macos-alias
       - run: yarn run electron-rebuild
       - run: yarn run publish --dry-run
       - uses: actions/upload-artifact@v4
