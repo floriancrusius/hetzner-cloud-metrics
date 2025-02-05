@@ -40,5 +40,4 @@ jobs:
         shell: powershell
       - uses: actions/upload-artifact@v4
         with:
-          name: binary-${{ matrix.os }}-${{ env.ARCH }}.zip
           path: out/make/zip/**/*.zip
