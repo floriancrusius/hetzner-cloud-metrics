@@ -25,7 +25,11 @@ jobs:
           fi
       - run: yarn install --frozen-lockfile --ignore-scripts
         shell: bash
-      - run: yarn add macos-alias
+      - run: |
+          if [[ "${{ runner.os }}" == "macOS" && "${{ matrix.os }}" == "macos-latest" ]]; then
+              yarn add macos-alias
+          fi
+
         shell: bash
       - run: npx electron-rebuild
         shell: bash
