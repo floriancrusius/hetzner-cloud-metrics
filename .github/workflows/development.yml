@@ -22,21 +22,8 @@ jobs:
             echo "Setting architecture flags for macOS ARM64"
             export ARCHFLAGS="-arch arm64"
             sudo xcode-select --install || true
-            brew install python@3.9
-            npm install -g node-gyp
           fi
       - run: yarn install --frozen-lockfile --ignore-scripts
-        shell: bash
-      - run: |
-          if [[ "${{ runner.os }}" == "macOS" && "${{ matrix.os }}" == "macos-latest" ]]; then
-              yarn add macos-alias
-              export npm_config_target=$(node -p "require('electron/package.json').version")
-                export npm_config_runtime=electron
-                export npm_config_disturl=https://electronjs.org/headers
-                export ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true
-                npx electron-rebuild
-          fi
-
         shell: bash
       - run: npx electron-rebuild
         shell: bash
