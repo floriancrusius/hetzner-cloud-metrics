@@ -1,0 +1,25 @@
+name: Build and Upload Artifacts
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+        arch: [x64, arm64, ia32]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.10
+      - run: yarn install --frozen-lockfile
+      - run: yarn run publish --arch=${{ matrix.arch }} --dry-run
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: out/

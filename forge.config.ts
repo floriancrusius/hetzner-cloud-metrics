@@ -14,14 +14,17 @@ import { rendererConfig } from './webpack.renderer.config';
 
 const config: ForgeConfig = {
   packagerConfig: {
+    osxSign: {},
     asar: true,
   },
-  rebuildConfig: {},
+  rebuildConfig: {
+    force: true,
+  },
   makers: [
-    new MakerSquirrel({}),
-    new MakerZIP({}, ['darwin']),
+    // new MakerSquirrel({}),
+    new MakerZIP({}, ['win32']),
     new MakerRpm({}),
-    new MakerDeb({}),
+    new MakerDeb({}, ['linux']),
     new MakerDMG({}, ['darwin']),
   ],
   plugins: [
