@@ -29,7 +29,14 @@ jobs:
         shell: bash
       - run: yarn run publish --dry-run
         shell: bash
+      - name: Set architecture (Linux and macOS)
+        if: runner.os != 'Windows'
+        run: echo "ARCH=$(uname -m)" >> $GITHUB_ENV
+      - name: Set architecture (Windows)
+        if: runner.os == 'Windows'
+        run: echo "ARCH=$Env:PROCESSOR_ARCHITECTURE" >> $GITHUB_ENV
+        shell: powershell
       - uses: actions/upload-artifact@v4
         with:
-          name: build-artifacts
+          name: binary-${{ matrix.os }}-${{ env.ARCH }}.zip
           path: out/make/zip/**/*.zip
