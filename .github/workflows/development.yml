@@ -10,15 +10,22 @@ jobs:
     strategy:
       matrix:
         os: [macos-13, macos-latest, windows-latest, ubuntu-latest]
+    name: Build on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.10
+          node-version: 20.16
+      - run: |
+          if [[ "${{ matrix.os }}" == "macos-latest" ]]; then
+            echo "Setting architecture flags for macOS ARM64"
+            export ARCHFLAGS="-arch arm64"
+            sudo xcode-select --install || true
+          fi
       - run: yarn install --frozen-lockfile --ignore-scripts
-      #   - run: yarn add macos-alias
-      - run: yarn run electron-rebuild
+      - run: yarn add macos-alias
+      - run: npx electron-rebuild
       - run: yarn run publish --dry-run
       - uses: actions/upload-artifact@v4
         with:
