@@ -22,10 +22,10 @@ const config: ForgeConfig = {
   },
   makers: [
     // new MakerSquirrel({}),
-    new MakerZIP({}, ['win32']),
+    new MakerZIP({}, ['win32', 'darwin']),
     new MakerRpm({}),
     new MakerDeb({}, ['linux']),
-    new MakerDMG({}, ['darwin']),
+    // new MakerDMG({}, []),
   ],
   plugins: [
     new AutoUnpackNativesPlugin({}),
