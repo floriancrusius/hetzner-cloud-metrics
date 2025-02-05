@@ -14,7 +14,7 @@ import { rendererConfig } from './webpack.renderer.config';
 
 const config: ForgeConfig = {
   packagerConfig: {
-    osxSign: {},
+    executableName: 'hetzner-cloud-metrics',
     asar: true,
   },
   rebuildConfig: {
@@ -22,8 +22,8 @@ const config: ForgeConfig = {
   },
   makers: [
     // new MakerSquirrel({}),
-    new MakerZIP({}, ['win32', 'darwin']),
-    new MakerRpm({}),
+    new MakerZIP({}, ['win32', 'darwin', 'linux']),
+    // new MakerRpm({}),
     new MakerDeb({}, ['linux']),
     // new MakerDMG({}, []),
   ],
